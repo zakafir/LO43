@@ -8,8 +8,8 @@ import java.util.*;
  */
 public class Retriever {
 
-    private static final String PATH_NAME_INSTANCE = "/Users/zakaria_afir/Downloads/sujet_LO43/Instance_1/Instance_1.txt";
-    private static final String PATH_NAME_SOLUTION = "/Users/zakaria_afir/Downloads/sujet_LO43/Instance_1/Solution_1.txt";
+    private static final String PATH_NAME_INSTANCE = "/Users/zakaria_afir/Downloads/sujet_LO43/Instance_4/Instance_4.txt";
+    private static final String PATH_NAME_SOLUTION = "/Users/zakaria_afir/Downloads/sujet_LO43/Instance_4/Solution_4.txt";
     private int numberOfDrivers;
     private int totalCost;
     private Map<String, Object> worker = new TreeMap<String, Object>();
@@ -21,14 +21,12 @@ public class Retriever {
 
 
 
-
-    public void readSolution() {
+    public void readSolutionAndInstanceFiles() {
         BufferedReader br = null;
         BufferedReader br2 = null;
         try {
             br = new BufferedReader(new FileReader(PATH_NAME_SOLUTION));
             br2 = new BufferedReader(new FileReader(PATH_NAME_INSTANCE));
-            System.out.println("Reading the txt file");
             String contentLine = br.readLine();
 
             System.out.println("Reading the txt file");
@@ -61,8 +59,17 @@ public class Retriever {
                     if (contentLine.contains("workerTimeSum")) {
                         worker.put("workerTimeSum", Integer.parseInt(contentLine.replaceAll("[\\D]", "")));
                     }
-                    if (contentLine.contains("UnderTime")) {
-                        worker.put("UnderTime", Integer.parseInt(contentLine.replaceAll("[\\D]", "")));
+                    if (contentLine.contains("UnderTime") || contentLine.contains("OverTime")) {
+                        if(contentLine.contains("UnderTime")){
+                            worker.put("UnderTime", Integer.parseInt(contentLine.replaceAll("[\\D]", "")));
+                            worker.remove("Overtime");
+                            oneTask.put("UnderTime", worker.get("UnderTime"));
+                        }
+                        else if(contentLine.contains("OverTime")){
+                            worker.put("OverTime", Integer.parseInt(contentLine.replaceAll("[\\D]", "")));
+                            worker.remove("UnderTime");
+                            oneTask.put("OverTime", worker.get("OverTime"));
+                        }
                     }
                     if (contentLine.contains("IdleTime")) {
                         worker.put("IdleTime", Integer.parseInt(contentLine.replaceAll("[\\D]", "")));
@@ -91,13 +98,23 @@ public class Retriever {
                             }
                         }
                         oneTask.put("id_worker", worker.get("id_worker"));
+                        oneTask.put("workerTimeSum", worker.get("workerTimeSum"));
+                        oneTask.put("Cost", worker.get("Cost"));
+                        oneTask.put("IdleTime", worker.get("IdleTime"));
+
+                        if(worker.containsKey("UnderTime")){
+                            oneTask.put("UnderTime", worker.get("UnderTime"));
+                        }
+                        else if(worker.containsKey("OverTime")){
+                            oneTask.put("OverTime", worker.get("OverTime"));
+                        }
 
                         //checher hours dans la liste instance
                         for(Map.Entry<String, Object> entry : oneTask.entrySet()){
                                 if (entry.getKey().equals("task_id") && !instance.isEmpty()) {
                                         Object object = instance.get(Integer.parseInt((String) entry.getValue())-1);
                                         oneTask.put("hours", object);
-                                        continue;
+                                        break;
                             }
                         }
 
@@ -114,10 +131,17 @@ public class Retriever {
             ioe.printStackTrace();
         } finally {
             try {
+                System.out.println("/-----------------------------/");
                 System.out.println("Reading file successfully");
+                System.out.println("Le nombre des chauffeurs est : "+numberOfDrivers);
                 for (int i = 0; i < tasks.size(); i++) {
                     System.out.println(tasks.get(i));
                 }
+                System.out.println("Le total cost de cette instance est : "+totalCost);
+                //reading worker map
+                /*for(Map.Entry<String, Object> entry : worker.entrySet()){
+                    System.out.println(entry.getKey() + ": " + entry.getValue());
+                }*/
                 if (br != null)
                     br.close();
                 if(br2 != null)
@@ -128,39 +152,6 @@ public class Retriever {
             }
         }
     }
-
-/*
-    public void readInstance() {
-
-        BufferedReader br = null;
-        try {
-            br = new BufferedReader(new FileReader(PATH_NAME_INSTANCE));
-
-            System.out.println("Reading the txt file");
-            int ligne = 0;
-            String contentLine = br.readLine();
-            while (contentLine != null) {
-                if(!contentLine.isEmpty()){
-                    System.out.print(gettingThings(contentLine));
-                    System.out.println("");
-                    ligne++;
-                    contentLine = br.readLine();
-                }
-            }
-
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
-        } finally {
-            try {
-                System.out.println("Reading file successfully");
-                if (br != null)
-                    br.close();
-            } catch (IOException ioe) {
-                System.out.println("Error in closing the BufferedReader");
-            }
-        }
-    }
-*/
 
     public String getHeureDebut(String contentLine){
         char [] test = contentLine.toCharArray();
@@ -180,21 +171,20 @@ public class Retriever {
     public String getHeureFin(String contentLine){
         char [] test = contentLine.toCharArray();
         fin = new char[8];
-        int cmp = 1;
         for(int i = 6; i<14;++i){
-            if(test[i] == ' ' && cmp == 1){
-                fin[i-6]='h';
-                cmp++;
-                continue;
-            }
             fin[i-6]=test[i];
+        }
+        for(int i=fin.length-1; i>=0;--i){
+            if((Character.isDigit(fin[i]) && Character.isDigit(fin[i-1])) || (Character.isDigit(fin[i]) && fin[i-1]==' ')){
+                fin[i-2] = 'h';
+                break;
+            }
         }
         String a = String.valueOf(fin);
         a = a.replaceAll("([A-Z])", "");
         a = a.replaceAll("\\s+","");
         return a;
     }
-
 
     public int[] lastIndexOfUCL(String contentLine) {
         int[] nothing = new int[2];
@@ -212,7 +202,6 @@ public class Retriever {
         }
         return nothing;
     }
-
 
     public String after(String value, String a) {
         // Returns a substring containing all characters after a string.
@@ -253,25 +242,15 @@ public class Retriever {
         return value.substring(0, posA);
     }
 
-    /*public void ajouterH(String t){
-        StringBuilder stringBuilder = new StringBuilder();
-        char[] test = t.toCharArray();
-        if(t.length() == 4){
-            stringBuilder.append(test[0])
-                    .append(test[1])
-                    .append('h')
-                    .append(test[2])
-                    .append(test[3]);
-        }
-        else if((t.length() == 3)){
-            if(test[0] > 1){
-                stringBuilder.append(test[0])
-                        .append('h')
-                        .append(test[1])
-                        .append(test[2]);
-            }
-            else if()
-        }
-    }*/
+    public int getNumberOfDrivers() {
+        return numberOfDrivers;
+    }
 
+    public int getTotalCost() {
+        return totalCost;
+    }
+
+    public ArrayList getInstance() {
+        return instance;
+    }
 }

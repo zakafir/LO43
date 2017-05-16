@@ -12,7 +12,7 @@ public class Main {
 
         //Database.createCoreDatabase();
         Retriever retriever = new Retriever();
-        retriever.readSolution();
+        retriever.readSolutionAndInstanceFiles();
         //retriever.readInstance();
         //worker
         /*Worker worker1 = new Worker(4);

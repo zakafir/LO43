@@ -15,10 +15,19 @@ public class Main {
 
         Retriever retriever = new Retriever();
         retriever.readSolutionAndInstanceFiles();
-        final DrawGantt drawGantt = new DrawGantt("Gantt Chart Demo 1");
+        Instance i = new Instance();
+
+        i.getData();
+        for (int it =0; it<i.tasksOfSpecificWorker(1).size();++it){
+            System.out.println(i.tasksOfSpecificWorker(1).get(it));
+        }
+
+
+
+        /*final DrawGantt drawGantt = new DrawGantt("Gantt Chart Demo 1");
         drawGantt.pack();
         RefineryUtilities.centerFrameOnScreen(drawGantt);
-        drawGantt.setVisible(true);
+        drawGantt.setVisible(true);*/
 
 
     }

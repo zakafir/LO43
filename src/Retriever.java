@@ -8,13 +8,13 @@ import java.util.*;
  */
 public class Retriever {
 
-    private static final String PATH_NAME_INSTANCE = "/Users/zakaria_afir/Downloads/sujet_LO43/Instance_4/Instance_4.txt";
-    private static final String PATH_NAME_SOLUTION = "/Users/zakaria_afir/Downloads/sujet_LO43/Instance_4/Solution_4.txt";
-    private int numberOfDrivers;
-    private int totalCost;
+    private static final String PATH_NAME_INSTANCE = "/Users/zakaria_afir/Downloads/sujet_LO43/Instance_1/Instance_1.txt";
+    private static final String PATH_NAME_SOLUTION = "/Users/zakaria_afir/Downloads/sujet_LO43/Instance_1/Solution_1.txt";
+    public static int numberOfDrivers;
+    private static int totalCost;
     private Map<String, Object> worker = new TreeMap<String, Object>();
     private Map<String, Object> oneTask = new TreeMap<String, Object>();
-    private List<Map<String, Object>> tasks = new LinkedList<>();
+    private static List<Map<String, Object>> tasks = new LinkedList<>();
     private ArrayList instance = new ArrayList();
     char [] debut;
     char [] fin;
@@ -138,10 +138,6 @@ public class Retriever {
                     System.out.println(tasks.get(i));
                 }
                 System.out.println("Le total cost de cette instance est : "+totalCost);
-                //reading worker map
-                /*for(Map.Entry<String, Object> entry : worker.entrySet()){
-                    System.out.println(entry.getKey() + ": " + entry.getValue());
-                }*/
                 if (br != null)
                     br.close();
                 if(br2 != null)
@@ -242,15 +238,19 @@ public class Retriever {
         return value.substring(0, posA);
     }
 
-    public int getNumberOfDrivers() {
+    public static int getNumberOfDrivers() {
         return numberOfDrivers;
     }
 
-    public int getTotalCost() {
+    public static int getTotalCost() {
         return totalCost;
     }
 
     public ArrayList getInstance() {
         return instance;
+    }
+
+    public static List<Map<String, Object>> getTasks() {
+        return tasks;
     }
 }

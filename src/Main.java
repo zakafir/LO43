@@ -4,9 +4,6 @@
 
 //import services.Core.Worker;
 
-import View.DrawGantt;
-import org.jfree.ui.RefineryUtilities;
-
 import java.sql.SQLException;
 
 /** Assumes UTF-8 encoding. JDK 7+. */
@@ -21,6 +18,9 @@ public class Main {
         for (int it =0; it<i.tasksOfSpecificWorker(1).size();++it){
             System.out.println(i.tasksOfSpecificWorker(1).get(it));
         }
+
+        System.out.print(i.heureDebutDeChaqueTaskOfSpecifiWorker(1,1)[0]);
+        System.out.print(i.heureDebutDeChaqueTaskOfSpecifiWorker(1,1)[1]);
 
 
 

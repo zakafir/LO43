@@ -36,7 +36,33 @@ public class Instance {
         return tasksOfThisWorker;
     }
 
-    public int costOfSpecificWorker(int idWorker){
+    public Integer[] heureDebutDeChaqueTaskOfSpecifiWorker(int idWorker, int task) {
+        Integer[] heureDebut = new Integer[2];
+        int[] minuteDebut = new int[2];
+        if (idWorker <= getNumberOfWorker() && task <= tasksOfSpecificWorker(idWorker).size()) {
+            for (Map.Entry<String, Object> entry : tasksOfSpecificWorker(idWorker).get(task - 1).entrySet()) {
+                if (!tasksOfSpecificWorker(idWorker).get(task - 1).isEmpty() && entry.getKey().equals("hours")) {
+                    String hours = (String) entry.getValue();
+                    hours = hours.replace("-------->", " ");
+                    char[] h = hours.toCharArray();
+                    for (int i = 0; i < h.length; ++i) {
+                        if (heureDebut[0] == null && heureDebut[1] == null) {
+                            if (Character.isDigit(h[i]) && h[i + 1] == 'h') {
+                                heureDebut[0] = 0;
+                                heureDebut[1] = Character.getNumericValue(h[i]);
+                            } else if (Character.isDigit(h[i]) && Character.isDigit(h[i + 1])) {
+                                heureDebut[0] = Character.getNumericValue(h[i]);
+                                heureDebut[1] = Character.getNumericValue(h[i + 1]);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return heureDebut;
+    }
+
+    public int costOfSpecificWorker(int idWorker) {
         int cost = 0;
         if (idWorker <= getNumberOfWorker()) {
             for (int k = 0; k < tasksOfSpecificWorker(idWorker).size(); ++k) {
@@ -50,7 +76,7 @@ public class Instance {
         return cost;
     }
 
-    public int idleTimeOfSpecificWorker(int idWorker){
+    public int idleTimeOfSpecificWorker(int idWorker) {
         int idleTime = 0;
         if (idWorker <= getNumberOfWorker()) {
             for (int k = 0; k < tasksOfSpecificWorker(idWorker).size(); ++k) {
@@ -64,7 +90,7 @@ public class Instance {
         return idleTime;
     }
 
-    public int underTimeOfSpecificWorker(int idWorker){
+    public int underTimeOfSpecificWorker(int idWorker) {
         int underTime = 0;
         if (idWorker <= getNumberOfWorker()) {
             for (int k = 0; k < tasksOfSpecificWorker(idWorker).size(); ++k) {
@@ -78,7 +104,7 @@ public class Instance {
         return underTime;
     }
 
-    public int overTimeOfSpecificWorker(int idWorker){
+    public int overTimeOfSpecificWorker(int idWorker) {
         int overTime = 0;
         if (idWorker <= getNumberOfWorker()) {
             for (int k = 0; k < tasksOfSpecificWorker(idWorker).size(); ++k) {
@@ -92,7 +118,7 @@ public class Instance {
         return overTime;
     }
 
-    public boolean hasUnderTime(int a, int b){
+    public boolean hasUnderTime(int a, int b) {
         return a < b ? true : false;
     }
 

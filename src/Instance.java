@@ -7,21 +7,18 @@ import java.util.Map;
  */
 public class Instance {
 
-    private int idInstance;
-    private int numberOfWorker;
-    private int totalCost;
+    private static int idInstance;
+    private static int numberOfWorker;
+    private static int totalCost;
     private static List<Map<String, Object>> listOfDataInstance = new LinkedList<>();
 
-    public Instance() {
 
-    }
-
-    public List<Map<String, Object>> getData() {
+    public static List<Map<String, Object>> getData() {
         listOfDataInstance = Retriever.getTasks();
         return listOfDataInstance;
     }
 
-    public List<Map<String, Object>> tasksOfSpecificWorker(int idWorker) {
+    public static List<Map<String, Object>> tasksOfSpecificWorker(int idWorker) {
         List<Map<String, Object>> tasksOfThisWorker = new LinkedList<>();
         if (idWorker <= getNumberOfWorker()) {
             for (int k = 0; k < listOfDataInstance.size(); ++k) {
@@ -35,7 +32,7 @@ public class Instance {
         return tasksOfThisWorker;
     }
 
-    public int costOfSpecificWorker(int idWorker) {
+    public static int costOfSpecificWorker(int idWorker) {
         int cost = 0;
         if (idWorker <= getNumberOfWorker()) {
             for (int k = 0; k < tasksOfSpecificWorker(idWorker).size(); ++k) {
@@ -49,7 +46,7 @@ public class Instance {
         return cost;
     }
 
-    public int idleTimeOfSpecificWorker(int idWorker) {
+    public static int idleTimeOfSpecificWorker(int idWorker) {
         int idleTime = 0;
         if (idWorker <= getNumberOfWorker()) {
             for (int k = 0; k < tasksOfSpecificWorker(idWorker).size(); ++k) {
@@ -63,7 +60,7 @@ public class Instance {
         return idleTime;
     }
 
-    public int underTimeOfSpecificWorker(int idWorker) {
+    public static int underTimeOfSpecificWorker(int idWorker) {
         int underTime = 0;
         if (idWorker <= getNumberOfWorker()) {
             for (int k = 0; k < tasksOfSpecificWorker(idWorker).size(); ++k) {
@@ -77,7 +74,7 @@ public class Instance {
         return underTime;
     }
 
-    public int overTimeOfSpecificWorker(int idWorker) {
+    public static int overTimeOfSpecificWorker(int idWorker) {
         int overTime = 0;
         if (idWorker <= getNumberOfWorker()) {
             for (int k = 0; k < tasksOfSpecificWorker(idWorker).size(); ++k) {
@@ -91,7 +88,7 @@ public class Instance {
         return overTime;
     }
 
-    public String destinationOfSpecificWorker(int idWorker, int task) {
+    public static String destinationOfSpecificWorker(int idWorker, int task) {
         String destination = "*";
         if (idWorker <= getNumberOfWorker() && task <= tasksOfSpecificWorker(idWorker).size()) {
             for (Map.Entry<String, Object> entry : tasksOfSpecificWorker(idWorker).get(task - 1).entrySet()) {
@@ -104,7 +101,7 @@ public class Instance {
         return destination;
     }
 
-    public int finishTimeOfSpecificWorker(int idWorker, int task) {
+    public static int finishTimeOfSpecificWorker(int idWorker, int task) {
         int finishTime = 0;
         if (idWorker <= getNumberOfWorker() && task <= tasksOfSpecificWorker(idWorker).size()) {
             for (Map.Entry<String, Object> entry : tasksOfSpecificWorker(idWorker).get(task - 1).entrySet()) {
@@ -117,7 +114,7 @@ public class Instance {
         return finishTime;
     }
 
-    public Integer[] heureDebutTaskOfSpecifiWorker(int idWorker, int task) {
+    public static Integer[] heureDebutTaskOfSpecifiWorker(int idWorker, int task) {
         Integer[] heureEtMinuteDebut = new Integer[4];
         if (idWorker <= getNumberOfWorker() && task <= tasksOfSpecificWorker(idWorker).size()) {
             for (Map.Entry<String, Object> entry : tasksOfSpecificWorker(idWorker).get(task - 1).entrySet()) {
@@ -159,7 +156,7 @@ public class Instance {
         return heureEtMinuteDebut;
     }
 
-    public Integer[] heureFinTaskOfSpecifiWorker(int idWorker, int task) {
+    public static Integer[] heureFinTaskOfSpecifiWorker(int idWorker, int task) {
         Integer[] heureEtMinuteFin = new Integer[4];
         if (idWorker <= getNumberOfWorker() && task <= tasksOfSpecificWorker(idWorker).size()) {
             for (Map.Entry<String, Object> entry : tasksOfSpecificWorker(idWorker).get(task - 1).entrySet()) {
@@ -201,7 +198,7 @@ public class Instance {
         return heureEtMinuteFin;
     }
 
-    public String originOfSpecificWorker(int idWorker, int task) {
+    public static String originOfSpecificWorker(int idWorker, int task) {
         String origin = "*";
         if (idWorker <= getNumberOfWorker() && task <= tasksOfSpecificWorker(idWorker).size()) {
             for (Map.Entry<String, Object> entry : tasksOfSpecificWorker(idWorker).get(task - 1).entrySet()) {
@@ -214,7 +211,7 @@ public class Instance {
         return origin;
     }
 
-    public int startTimeOfSpecificWorker(int idWorker, int task) {
+    public static int startTimeOfSpecificWorker(int idWorker, int task) {
         int startTime = 0;
         if (idWorker <= getNumberOfWorker() && task <= tasksOfSpecificWorker(idWorker).size()) {
             for (Map.Entry<String, Object> entry : tasksOfSpecificWorker(idWorker).get(task - 1).entrySet()) {
@@ -227,7 +224,7 @@ public class Instance {
         return startTime;
     }
 
-    public int workerTimeSumOfSpecificWorker(int idWorker) {
+    public static int workerTimeSumOfSpecificWorker(int idWorker) {
         int workerTimeSum = 0;
         if (idWorker <= getNumberOfWorker()) {
             for (int k = 0; k < tasksOfSpecificWorker(idWorker).size(); ++k) {
@@ -241,30 +238,30 @@ public class Instance {
         return workerTimeSum;
     }
 
-    public boolean hasUnderTime(int a, int b) {
+    public static boolean hasUnderTime(int a, int b) {
         return a < b ? true : false;
     }
 
-    public int getIdInstance() {
+    public static int getIdInstance() {
         return idInstance;
     }
 
-    public void setIdInstance(int idInstance) {
-        this.idInstance = idInstance;
+    public static void setIdInstance(int idInstance) {
+        idInstance = idInstance;
     }
 
-    public int getNumberOfWorker() {
+    public static int getNumberOfWorker() {
         numberOfWorker = Retriever.numberOfDrivers;
         return numberOfWorker;
     }
 
-    public int getTotalCost() {
+    public static int getTotalCost() {
         totalCost = Retriever.getTotalCost();
         return totalCost;
     }
 
-    public void setTotalCost(int totalCost) {
-        this.totalCost = totalCost;
+    public static void setTotalCost(int totalCost) {
+        totalCost = totalCost;
     }
 
     public static List<Map<String, Object>> getListOfDataInstance() {

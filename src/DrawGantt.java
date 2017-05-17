@@ -21,6 +21,7 @@ import java.util.Date;
  *
  */
 public class DrawGantt extends ApplicationFrame {
+    Instance i = new Instance();
 
     /**
      * Creates a new demo.
@@ -60,83 +61,33 @@ public class DrawGantt extends ApplicationFrame {
     public static IntervalCategoryDataset createDataset() {
 
         final TaskSeries s1 = new TaskSeries("Scheduled");
-        s1.add(new Task("Write Proposal",
-                new SimpleTimePeriod(date(1, Calendar.APRIL, 2017),
-                        date(5, Calendar.APRIL, 2017))));
-        s1.add(new Task("Obtain Approval",
-                new SimpleTimePeriod(date(9, Calendar.APRIL, 2017),
-                        date(9, Calendar.APRIL, 2017))));
-        s1.add(new Task("Requirements Analysis",
-                new SimpleTimePeriod(date(10, Calendar.APRIL, 2017),
-                        date(5, Calendar.MAY, 2017))));
-        s1.add(new Task("Design Phase",
-                new SimpleTimePeriod(date(6, Calendar.MAY, 2017),
-                        date(30, Calendar.MAY, 2017))));
-        s1.add(new Task("Design Signoff",
-                new SimpleTimePeriod(date(2, Calendar.JUNE, 2017),
-                        date(2, Calendar.JUNE, 2017))));
-        s1.add(new Task("Alpha Implementation",
-                new SimpleTimePeriod(date(3, Calendar.JUNE, 2017),
-                        date(31, Calendar.JULY, 2017))));
-        s1.add(new Task("Design Review",
-                new SimpleTimePeriod(date(1, Calendar.AUGUST, 2017),
-                        date(8, Calendar.AUGUST, 2017))));
-        s1.add(new Task("Revised Design Signoff",
-                new SimpleTimePeriod(date(10, Calendar.AUGUST, 2017),
-                        date(10, Calendar.AUGUST, 2017))));
-        s1.add(new Task("Beta Implementation",
-                new SimpleTimePeriod(date(12, Calendar.AUGUST, 2017),
-                        date(12, Calendar.SEPTEMBER, 2017))));
-        s1.add(new Task("Testing",
-                new SimpleTimePeriod(date(13, Calendar.SEPTEMBER, 2017),
-                        date(31, Calendar.OCTOBER, 2017))));
-        s1.add(new Task("Final Implementation",
-                new SimpleTimePeriod(date(1, Calendar.NOVEMBER, 2017),
-                        date(15, Calendar.NOVEMBER, 2017))));
-        s1.add(new Task("Signoff",
-                new SimpleTimePeriod(date(28, Calendar.NOVEMBER, 2017),
-                        date(30, Calendar.NOVEMBER, 2017))));
 
+
+
+
+        s1.add(new Task("Write Proposal",
+                new SimpleTimePeriod(date(1, Calendar.APRIL, 2017,
+                        Instance.heureDebutTaskOfSpecifiWorker(121,2)),
+                        date(1, Calendar.APRIL, 2017,
+                                Instance.heureFinTaskOfSpecifiWorker(121,2)))));
+        s1.add(new Task("Obtain Approval",
+                new SimpleTimePeriod(date(1, Calendar.APRIL, 2017,
+                        Instance.heureDebutTaskOfSpecifiWorker(1,2)),
+                        date(1, Calendar.APRIL, 2017,
+                                Instance.heureFinTaskOfSpecifiWorker(1,2)))));
 
 
         final TaskSeries s2 = new TaskSeries("Actual");
         s2.add(new Task("Write Proposal",
-                new SimpleTimePeriod(date(1, Calendar.APRIL, 2017),
-                        date(5, Calendar.APRIL, 2017))));
+                new SimpleTimePeriod(date(1, Calendar.APRIL, 2017,
+                        Instance.heureDebutTaskOfSpecifiWorker(2,1)),
+                        date(1, Calendar.APRIL, 2017,
+                                Instance.heureFinTaskOfSpecifiWorker(2,1)))));
         s2.add(new Task("Obtain Approval",
-                new SimpleTimePeriod(date(9, Calendar.APRIL, 2017),
-                        date(9, Calendar.APRIL, 2017))));
-        s2.add(new Task("Requirements Analysis",
-                new SimpleTimePeriod(date(10, Calendar.APRIL, 2017),
-                        date(15, Calendar.MAY, 2017))));
-        s2.add(new Task("Design Phase",
-                new SimpleTimePeriod(date(15, Calendar.MAY, 2017),
-                        date(17, Calendar.JUNE, 2017))));
-        s2.add(new Task("Design Signoff",
-                new SimpleTimePeriod(date(30, Calendar.JUNE, 2017),
-                        date(30, Calendar.JUNE, 2017))));
-        s2.add(new Task("Alpha Implementation",
-                new SimpleTimePeriod(date(1, Calendar.JULY, 2017),
-                        date(12, Calendar.SEPTEMBER, 2017))));
-        s2.add(new Task("Design Review",
-                new SimpleTimePeriod(date(12, Calendar.SEPTEMBER, 2017),
-                        date(22, Calendar.SEPTEMBER, 2017))));
-        s2.add(new Task("Revised Design Signoff",
-                new SimpleTimePeriod(date(25, Calendar.SEPTEMBER, 2017),
-                        date(27, Calendar.SEPTEMBER, 2017))));
-        s2.add(new Task("Beta Implementation",
-                new SimpleTimePeriod(date(27, Calendar.SEPTEMBER, 2017),
-                        date(30, Calendar.OCTOBER, 2017))));
-        s2.add(new Task("Testing",
-                new SimpleTimePeriod(date(31, Calendar.OCTOBER, 2017),
-                        date(17, Calendar.NOVEMBER, 2017))));
-        s2.add(new Task("Final Implementation",
-                new SimpleTimePeriod(date(18, Calendar.NOVEMBER, 2017),
-                        date(5, Calendar.DECEMBER, 2017))));
-        s2.add(new Task("Signoff",
-                new SimpleTimePeriod(date(10, Calendar.DECEMBER, 2017),
-                        date(11, Calendar.DECEMBER, 2017))));
-
+                new SimpleTimePeriod(date(1, Calendar.APRIL, 2017,
+                        Instance.heureDebutTaskOfSpecifiWorker(2,2)),
+                        date(1, Calendar.APRIL, 2017,
+                                Instance.heureFinTaskOfSpecifiWorker(2,2)))));
 
         final TaskSeriesCollection collection = new TaskSeriesCollection();
         collection.add(s1);
@@ -172,10 +123,15 @@ public class DrawGantt extends ApplicationFrame {
      *
      * @return a date.
      */
-    private static Date date(final int day, final int month, final int year, final int hourOfDay, final int minute, final int second) {
+    private static Date date(final int day, final int month, final int year, final Integer[] hourAndMinuteOfDay) {
+
+        int hour;
+        int minute;
+        hour = Integer.parseInt(hourAndMinuteOfDay[0] + "" + hourAndMinuteOfDay[1]);
+        minute = Integer.parseInt(hourAndMinuteOfDay[2] + "" + hourAndMinuteOfDay[3]);
 
         final Calendar calendar = Calendar.getInstance();
-        calendar.set(year, month, day, hourOfDay, minute, second);
+        calendar.set(day,month,year,hour,minute);
         final Date result = calendar.getTime();
         return result;
 

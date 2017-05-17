@@ -10,7 +10,6 @@ public class Instance {
     private int idInstance;
     private int numberOfWorker;
     private int totalCost;
-    public Worker worker;
     private static List<Map<String, Object>> listOfDataInstance = new LinkedList<>();
 
     public Instance() {
@@ -34,32 +33,6 @@ public class Instance {
             }
         }
         return tasksOfThisWorker;
-    }
-
-    public Integer[] heureDebutDeChaqueTaskOfSpecifiWorker(int idWorker, int task) {
-        Integer[] heureDebut = new Integer[2];
-        int[] minuteDebut = new int[2];
-        if (idWorker <= getNumberOfWorker() && task <= tasksOfSpecificWorker(idWorker).size()) {
-            for (Map.Entry<String, Object> entry : tasksOfSpecificWorker(idWorker).get(task - 1).entrySet()) {
-                if (!tasksOfSpecificWorker(idWorker).get(task - 1).isEmpty() && entry.getKey().equals("hours")) {
-                    String hours = (String) entry.getValue();
-                    hours = hours.replace("-------->", " ");
-                    char[] h = hours.toCharArray();
-                    for (int i = 0; i < h.length; ++i) {
-                        if (heureDebut[0] == null && heureDebut[1] == null) {
-                            if (Character.isDigit(h[i]) && h[i + 1] == 'h') {
-                                heureDebut[0] = 0;
-                                heureDebut[1] = Character.getNumericValue(h[i]);
-                            } else if (Character.isDigit(h[i]) && Character.isDigit(h[i + 1])) {
-                                heureDebut[0] = Character.getNumericValue(h[i]);
-                                heureDebut[1] = Character.getNumericValue(h[i + 1]);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        return heureDebut;
     }
 
     public int costOfSpecificWorker(int idWorker) {
@@ -118,10 +91,159 @@ public class Instance {
         return overTime;
     }
 
+    public String destinationOfSpecificWorker(int idWorker, int task) {
+        String destination = "*";
+        if (idWorker <= getNumberOfWorker() && task <= tasksOfSpecificWorker(idWorker).size()) {
+            for (Map.Entry<String, Object> entry : tasksOfSpecificWorker(idWorker).get(task - 1).entrySet()) {
+                if (!tasksOfSpecificWorker(idWorker).get(task - 1).isEmpty() && entry.getKey().equals("destination")) {
+                    destination = entry.getValue().toString();
+                }
+            }
+        }
+
+        return destination;
+    }
+
+    public int finishTimeOfSpecificWorker(int idWorker, int task) {
+        int finishTime = 0;
+        if (idWorker <= getNumberOfWorker() && task <= tasksOfSpecificWorker(idWorker).size()) {
+            for (Map.Entry<String, Object> entry : tasksOfSpecificWorker(idWorker).get(task - 1).entrySet()) {
+                if (!tasksOfSpecificWorker(idWorker).get(task - 1).isEmpty() && entry.getKey().equals("finishTime")) {
+                    finishTime = Integer.parseInt(entry.getValue().toString());
+                }
+            }
+        }
+
+        return finishTime;
+    }
+
+    public Integer[] heureDebutTaskOfSpecifiWorker(int idWorker, int task) {
+        Integer[] heureEtMinuteDebut = new Integer[4];
+        if (idWorker <= getNumberOfWorker() && task <= tasksOfSpecificWorker(idWorker).size()) {
+            for (Map.Entry<String, Object> entry : tasksOfSpecificWorker(idWorker).get(task - 1).entrySet()) {
+                if (!tasksOfSpecificWorker(idWorker).get(task - 1).isEmpty() && entry.getKey().equals("hours")) {
+                    String hours = (String) entry.getValue();
+                    hours = hours.replace("-------->", " ");
+                    char[] h = hours.toCharArray();
+                    for (int i = 0; i < h.length; ++i) {
+                        if (heureEtMinuteDebut[0] == null && heureEtMinuteDebut[1] == null) {
+                            if (Character.isDigit(h[i]) && h[i + 1] == 'h') {
+                                heureEtMinuteDebut[0] = 0;
+                                heureEtMinuteDebut[1] = Character.getNumericValue(h[i]);
+                            } else if (Character.isDigit(h[i]) && Character.isDigit(h[i + 1])) {
+                                heureEtMinuteDebut[0] = Character.getNumericValue(h[i]);
+                                heureEtMinuteDebut[1] = Character.getNumericValue(h[i + 1]);
+                            }
+                        }
+                        if ((heureEtMinuteDebut[2] == null && heureEtMinuteDebut[3] == null)) {
+                            hours = Retriever.between(hours, "h", " ");
+                            char[] m = hours.toCharArray();
+                            if (m.length > 1) {
+                                if (Character.isDigit(m[i]) && Character.isDigit(m[i + 1])) {
+                                    heureEtMinuteDebut[2] = Character.getNumericValue(m[i]);
+                                    heureEtMinuteDebut[3] = Character.getNumericValue(m[i + 1]);
+                                    break;
+                                }
+                            } else {
+                                heureEtMinuteDebut[2] = 0;
+                                heureEtMinuteDebut[3] = Character.getNumericValue(m[i]);
+                                break;
+                            }
+
+
+                        }
+                    }
+                }
+            }
+        }
+        return heureEtMinuteDebut;
+    }
+
+    public Integer[] heureFinTaskOfSpecifiWorker(int idWorker, int task) {
+        Integer[] heureEtMinuteFin = new Integer[4];
+        if (idWorker <= getNumberOfWorker() && task <= tasksOfSpecificWorker(idWorker).size()) {
+            for (Map.Entry<String, Object> entry : tasksOfSpecificWorker(idWorker).get(task - 1).entrySet()) {
+                if (!tasksOfSpecificWorker(idWorker).get(task - 1).isEmpty() && entry.getKey().equals("hours")) {
+                    String hours = (String) entry.getValue();
+                    hours = Retriever.after(hours, "-------->");
+                    char[] h = hours.toCharArray();
+                    for (int i = 0; i < h.length; ++i) {
+                        if (heureEtMinuteFin[0] == null && heureEtMinuteFin[1] == null) {
+                            if (Character.isDigit(h[i]) && h[i + 1] == 'h') {
+                                heureEtMinuteFin[1] = Character.getNumericValue(h[i]);
+                                heureEtMinuteFin[0] = 0;
+                            } else if (Character.isDigit(h[i]) && Character.isDigit(h[i + 1])) {
+                                heureEtMinuteFin[1] = Character.getNumericValue(h[i + 1]);
+                                heureEtMinuteFin[0] = Character.getNumericValue(h[i]);
+                            }
+                        }
+                        if ((heureEtMinuteFin[2] == null && heureEtMinuteFin[3] == null)) {
+                            hours = Retriever.after(hours, "h");
+                            char[] m = hours.toCharArray();
+                            if (m.length > 1) {
+                                if (Character.isDigit(m[i]) && Character.isDigit(m[i + 1])) {
+                                    heureEtMinuteFin[3] = Character.getNumericValue(m[i + 1]);
+                                    heureEtMinuteFin[2] = Character.getNumericValue(m[i]);
+                                    break;
+                                }
+                            } else {
+                                heureEtMinuteFin[3] = Character.getNumericValue(m[i]);
+                                heureEtMinuteFin[2] = 0;
+                                break;
+                            }
+
+                        }
+
+                    }
+                }
+            }
+        }
+        return heureEtMinuteFin;
+    }
+
+    public String originOfSpecificWorker(int idWorker, int task) {
+        String origin = "*";
+        if (idWorker <= getNumberOfWorker() && task <= tasksOfSpecificWorker(idWorker).size()) {
+            for (Map.Entry<String, Object> entry : tasksOfSpecificWorker(idWorker).get(task - 1).entrySet()) {
+                if (!tasksOfSpecificWorker(idWorker).get(task - 1).isEmpty() && entry.getKey().equals("origin")) {
+                    origin = entry.getValue().toString();
+                }
+            }
+        }
+
+        return origin;
+    }
+
+    public int startTimeOfSpecificWorker(int idWorker, int task) {
+        int startTime = 0;
+        if (idWorker <= getNumberOfWorker() && task <= tasksOfSpecificWorker(idWorker).size()) {
+            for (Map.Entry<String, Object> entry : tasksOfSpecificWorker(idWorker).get(task - 1).entrySet()) {
+                if (!tasksOfSpecificWorker(idWorker).get(task - 1).isEmpty() && entry.getKey().equals("startTime")) {
+                    startTime = Integer.parseInt(entry.getValue().toString());
+                }
+            }
+        }
+
+        return startTime;
+    }
+
+    public int workerTimeSumOfSpecificWorker(int idWorker) {
+        int workerTimeSum = 0;
+        if (idWorker <= getNumberOfWorker()) {
+            for (int k = 0; k < tasksOfSpecificWorker(idWorker).size(); ++k) {
+                for (Map.Entry<String, Object> entry : tasksOfSpecificWorker(idWorker).get(k).entrySet()) {
+                    if (!listOfDataInstance.get(k).isEmpty() && entry.getKey().equals("workerTimeSum")) {
+                        workerTimeSum = Integer.parseInt(entry.getValue().toString());
+                    }
+                }
+            }
+        }
+        return workerTimeSum;
+    }
+
     public boolean hasUnderTime(int a, int b) {
         return a < b ? true : false;
     }
-
 
     public int getIdInstance() {
         return idInstance;

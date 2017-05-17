@@ -19,15 +19,10 @@ public class Constants {
     public final static String P = "LA DAME";
     public final static String U = "Laurencie";
 
-    public final static int NUMBER_OF_INSTANCE = 4;
-    public final static int NUMBER_OF_WORKER = 121;
-    public final static int NUMBER_POSSIBLE_OF_TASK = 1100;
-
-    //
-    public final static int NUMBER_OF_COLUMNS = 13;
 
 
-    //instance_1 properties
-    public static int INSTANCE_1_TOTALCOST=4775;
+
+
+
 
 }

@@ -8,8 +8,8 @@ import java.util.*;
  */
 public class Retriever {
 
-    private static final String PATH_NAME_INSTANCE = "/Users/zakaria_afir/Downloads/sujet_LO43/Instance_1/Instance_1.txt";
-    private static final String PATH_NAME_SOLUTION = "/Users/zakaria_afir/Downloads/sujet_LO43/Instance_1/Solution_1.txt";
+    private static final String PATH_NAME_INSTANCE = "/Users/zakaria_afir/Downloads/sujet_LO43/Instance_3/Instance_3.txt";
+    private static final String PATH_NAME_SOLUTION = "/Users/zakaria_afir/Downloads/sujet_LO43/Instance_3/Solution_3.txt";
     public static int numberOfDrivers;
     private static int totalCost;
     private Map<String, Object> worker = new TreeMap<String, Object>();
@@ -199,7 +199,7 @@ public class Retriever {
         return nothing;
     }
 
-    public String after(String value, String a) {
+    public static String after(String value, String a) {
         // Returns a substring containing all characters after a string.
         int posA = value.lastIndexOf(a);
         if (posA == -1) {
@@ -212,7 +212,7 @@ public class Retriever {
         return value.substring(adjustedPosA);
     }
 
-    public String between(String value, String a, String b) {
+    public static String between(String value, String a, String b) {
         // Return a substring between the two strings.
         int posA = value.indexOf(a);
         if (posA == -1) {
@@ -229,7 +229,7 @@ public class Retriever {
         return value.substring(adjustedPosA, posB);
     }
 
-    public String before(String value, String a) {
+    public static String before(String value, String a) {
         // Return substring containing all characters before a string.
         int posA = value.indexOf(a);
         if (posA == -1) {

@@ -1,0 +1,75 @@
+*******************
+Fichiers 
+*******************
+Instance_x.txt est un fichier de données.
+Solution_x.txt est un fichier de solution associée.
+
+*******************
+Paramètres
+*******************
+Temps normal: 480 min
+Temps maximal: 600 min
+Temps de pause légale: 30 min
+
+*******************
+Instance_1
+*******************
+Nombre des tâches: 80 
+
+-------------------
+Lieux représentés
+
+A - Valdoie Mairie 
+B - La Douce 
+C - Madrid 
+D - Techn'hom4 
+-------------------
+
+*******************
+Instance_2
+*******************
+Nombre des tâches: 400 
+
+----------------------
+A - Valdoie Mairie 
+B - La Douce 
+C - Madrid 
+D - Techn'hom4 
+E - Gare
+----------------------
+
+*******************
+Instance_3
+*******************
+Nombre des tâches: 1000 
+
+----------------------
+Lieux représentés
+A - Valdoie Mairie 
+B - La Douce 
+C - Madrid 
+D - Techn'hom4 
+E - Gare
+F - 1er RA
+M - Pierre Engel 
+----------------------
+
+*******************
+Instance_4
+*******************
+Nombre des tâches: 207 
+
+----------------------
+Lieux représentés
+
+A - Valdoie Mairie 
+B - La Douce 
+C - Madrid 
+D - Techn'hom4 
+F - 1er RA
+M - Pierre Engel 
+N - Essert 
+O - Moulin 
+P - LA DAME 
+U - Laurencie
+----------------------

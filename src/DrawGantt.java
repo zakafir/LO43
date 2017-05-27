@@ -21,6 +21,7 @@ import java.util.Date;
  *
  */
 public class DrawGantt extends ApplicationFrame {
+    static int idDuChauffeur = 9;
     Instance i = new Instance();
 
     /**
@@ -60,24 +61,34 @@ public class DrawGantt extends ApplicationFrame {
      */
     public static IntervalCategoryDataset createDataset() {
 
-        final TaskSeries s1 = new TaskSeries("Scheduled");
+
+
+        TaskSeries[] s = new TaskSeries[Instance.tasksOfSpecificWorker(idDuChauffeur).size()];
+        TaskSeriesCollection collection = new TaskSeriesCollection();
 
 
 
 
-        s1.add(new Task("Write Proposal",
-                new SimpleTimePeriod(date(1, Calendar.APRIL, 2017,
-                        Instance.heureDebutTaskOfSpecifiWorker(121,2)),
-                        date(1, Calendar.APRIL, 2017,
-                                Instance.heureFinTaskOfSpecifiWorker(121,2)))));
-        s1.add(new Task("Obtain Approval",
+        for (int it =0; it<Instance.tasksOfSpecificWorker(idDuChauffeur).size();++it) {
+            s[it] = new TaskSeries("tâche "+(it+1));
+
+            s[it].add(new Task("",
+                    new SimpleTimePeriod(date(1, Calendar.APRIL, 2017,
+                            Instance.heureDebutTaskOfSpecifiWorker(idDuChauffeur, it+1)),
+                            date(1, Calendar.APRIL, 2017,
+                                    Instance.heureFinTaskOfSpecifiWorker(idDuChauffeur, it+1)))));
+            collection.add(s[it]);
+        }
+
+
+        /*s1.add(new Task("Obtain Approval",
                 new SimpleTimePeriod(date(1, Calendar.APRIL, 2017,
                         Instance.heureDebutTaskOfSpecifiWorker(1,2)),
                         date(1, Calendar.APRIL, 2017,
-                                Instance.heureFinTaskOfSpecifiWorker(1,2)))));
+                                Instance.heureFinTaskOfSpecifiWorker(1,2)))));*/
 
 
-        final TaskSeries s2 = new TaskSeries("Actual");
+        /*final TaskSeries s2 = new TaskSeries("Actual");
         s2.add(new Task("Write Proposal",
                 new SimpleTimePeriod(date(1, Calendar.APRIL, 2017,
                         Instance.heureDebutTaskOfSpecifiWorker(2,1)),
@@ -87,11 +98,10 @@ public class DrawGantt extends ApplicationFrame {
                 new SimpleTimePeriod(date(1, Calendar.APRIL, 2017,
                         Instance.heureDebutTaskOfSpecifiWorker(2,2)),
                         date(1, Calendar.APRIL, 2017,
-                                Instance.heureFinTaskOfSpecifiWorker(2,2)))));
+                                Instance.heureFinTaskOfSpecifiWorker(2,2)))));*/
 
-        final TaskSeriesCollection collection = new TaskSeriesCollection();
-        collection.add(s1);
-        collection.add(s2);
+
+        //collection.add(s2);
 
         return collection;
     }
@@ -146,9 +156,9 @@ public class DrawGantt extends ApplicationFrame {
      */
     private JFreeChart createChart(final IntervalCategoryDataset dataset) {
         final JFreeChart chart = ChartFactory.createGanttChart(
-                "Gantt Chart Demo",  // chart title
-                "Task",              // domain axis label
-                "Date",              // range axis label
+                "Diagramme de Gantt du chauffeur N° "+idDuChauffeur,  // chart title
+                "tâches",              // domain axis label
+                "Jour",              // range axis label
                 dataset,             // data
                 true,                // include legend
                 true,                // tooltips

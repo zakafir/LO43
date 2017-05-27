@@ -6,22 +6,33 @@
 
 import org.jfree.ui.RefineryUtilities;
 
+import javax.swing.*;
 import java.sql.SQLException;
 
 /** Assumes UTF-8 encoding. JDK 7+. */
 public class Main {
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
 
+
         Retriever retriever = new Retriever();
         retriever.readSolutionAndInstanceFiles();
 
         Instance.getData();
-        for (int it =0; it<Instance.tasksOfSpecificWorker(1).size();++it){
-            System.out.println(Instance.tasksOfSpecificWorker(1).get(it));
+
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                new JListExample();
+            }
+        });
+
+
+        for (int it =0; it<Instance.tasksOfSpecificWorker(9).size();++it){
+            System.out.println(Instance.tasksOfSpecificWorker(9).get(it));
         }
 
 
-        //heure de début
+        /*//heure de début
         System.out.print(Instance.heureDebutTaskOfSpecifiWorker(1,2)[0]);
         System.out.print(Instance.heureDebutTaskOfSpecifiWorker(1,2)[1]);
         System.out.print(":");
@@ -35,9 +46,9 @@ public class Main {
         System.out.print(Instance.heureFinTaskOfSpecifiWorker(1,2)[1]);
         System.out.print(":");
         System.out.print(Instance.heureFinTaskOfSpecifiWorker(1,2)[2]);
-        System.out.println(Instance.heureFinTaskOfSpecifiWorker(1,2)[3]);
+        System.out.println(Instance.heureFinTaskOfSpecifiWorker(1,2)[3]);*/
 
-        //finishTime
+        /*//finishTime
         System.out.println(Instance.startTimeOfSpecificWorker(1,2));
 
         //workerTimeSum
@@ -47,12 +58,12 @@ public class Main {
         System.out.println(Instance.destinationOfSpecificWorker(1,2));
 
         //origin
-        System.out.println(Instance.originOfSpecificWorker(1,2));
+        System.out.println(Instance.originOfSpecificWorker(1,2));*/
 
 
 
 
-        final DrawGantt drawGantt = new DrawGantt("Gantt Chart Demo 1");
+        final DrawGantt drawGantt = new DrawGantt("Gantt");
         drawGantt.pack();
         RefineryUtilities.centerFrameOnScreen(drawGantt);
         drawGantt.setVisible(true);

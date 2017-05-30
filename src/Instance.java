@@ -211,6 +211,33 @@ public class Instance {
         return origin;
     }
 
+    public static int taskIdOfSpecificWorker(int idWorker, int task) {
+        int taskId = 0;
+        if (idWorker <= getNumberOfWorker() && task <= tasksOfSpecificWorker(idWorker).size()) {
+            for (Map.Entry<String, Object> entry : tasksOfSpecificWorker(idWorker).get(task - 1).entrySet()) {
+                if (!tasksOfSpecificWorker(idWorker).get(task - 1).isEmpty() && entry.getKey().equals("task_id")) {
+                    taskId = Integer.parseInt(entry.getValue().toString());
+                }
+            }
+        }
+
+        return taskId;
+    }
+
+    public static String hoursOfSpecificWorker(int idWorker, int task) {
+        String hours = "";
+        if (idWorker <= getNumberOfWorker() && task <= tasksOfSpecificWorker(idWorker).size()) {
+            for (Map.Entry<String, Object> entry : tasksOfSpecificWorker(idWorker).get(task - 1).entrySet()) {
+                if (!tasksOfSpecificWorker(idWorker).get(task - 1).isEmpty() && entry.getKey().equals("hours")) {
+                    hours = entry.getValue().toString();
+                }
+            }
+        }
+
+        return hours;
+    };
+
+
     public static int startTimeOfSpecificWorker(int idWorker, int task) {
         int startTime = 0;
         if (idWorker <= getNumberOfWorker() && task <= tasksOfSpecificWorker(idWorker).size()) {

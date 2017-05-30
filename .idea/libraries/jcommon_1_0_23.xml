@@ -6,5 +6,8 @@
     </CLASSES>
     <JAVADOC />
     <SOURCES />
+    <excluded>
+      <root url="jar://$USER_HOME$/Downloads/JFormDesigner/lib/JFormDesigner-Idea.jar!/" />
+    </excluded>
   </library>
 </component>

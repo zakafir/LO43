@@ -1,6 +1,9 @@
 /**
  * Created by zakaria_afir on 27/05/2017.
  */
+import org.jfree.ui.RefineryUtilities;
+
+import java.util.Arrays;
 import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
@@ -34,8 +37,37 @@ public class JListExample extends JFrame {
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 if (!e.getValueIsAdjusting()) {
-                    final List<String> selectedValuesList = countryList.getSelectedValuesList();
+                    List<String> selectedValuesList = countryList.getSelectedValuesList();
                     System.out.println(selectedValuesList);
+
+                    DrawGantt.idDuChauffeur = Integer.parseInt(selectedValuesList.get(0));
+                    System.out.println("+-----------------------------------------------------+");
+                    System.out.println("+id Worker: "+DrawGantt.idDuChauffeur);
+                    System.out.println("+The Worker Time Sum: "+Instance.workerTimeSumOfSpecificWorker(DrawGantt.idDuChauffeur));
+                    System.out.println("+The Cost: "+Instance.costOfSpecificWorker(DrawGantt.idDuChauffeur));
+                    System.out.println("+The Idle Time: "+Instance.idleTimeOfSpecificWorker(DrawGantt.idDuChauffeur));
+                    System.out.println("+The Under Time: "+Instance.underTimeOfSpecificWorker(DrawGantt.idDuChauffeur));
+                    System.out.println("+The Over Time: "+Instance.overTimeOfSpecificWorker(DrawGantt.idDuChauffeur));
+                    System.out.println("+-----------------------------------------------------+");
+
+                    System.out.println("Tasks of worker :"+DrawGantt.idDuChauffeur);
+                    for (int it =0; it<Instance.tasksOfSpecificWorker(DrawGantt.idDuChauffeur).size();++it){
+                        System.out.println("********************************************");
+                        System.out.println("Task :"+it+1);
+                        System.out.println("Start Time: "+Instance.startTimeOfSpecificWorker(DrawGantt.idDuChauffeur,it+1));
+                        System.out.println("Finish Time: "+Instance.finishTimeOfSpecificWorker(DrawGantt.idDuChauffeur,it+1));
+                        System.out.println("Origin: "+Instance.originOfSpecificWorker(DrawGantt.idDuChauffeur,it+1));
+                        System.out.println("Destination: "+Instance.destinationOfSpecificWorker(DrawGantt.idDuChauffeur,it+1));
+                        System.out.println("Id Task : "+Instance.taskIdOfSpecificWorker(DrawGantt.idDuChauffeur,it+1));
+                        System.out.println("l'heure de la tâche : "+ Instance.hoursOfSpecificWorker(DrawGantt.idDuChauffeur,it+1));
+                        System.out.println("********************************************");
+                        System.out.println("\n");
+
+                    }
+                    DrawGantt drawGantt = new DrawGantt("Gantt");
+                    drawGantt.pack();
+                    RefineryUtilities.centerFrameOnScreen(drawGantt);
+                    drawGantt.setVisible(true);
                 }
             }
         });
@@ -43,7 +75,7 @@ public class JListExample extends JFrame {
         add(new JScrollPane(countryList));
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setTitle("JList Example");
+        this.setTitle("List of workers");
         this.setSize(200, 200);
         this.setLocationRelativeTo(null);
         this.setVisible(true);

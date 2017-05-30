@@ -9,6 +9,8 @@ import org.jfree.data.time.SimpleTimePeriod;
 import org.jfree.ui.ApplicationFrame;
 import org.jfree.ui.RefineryUtilities;
 
+import javax.swing.*;
+import java.awt.*;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -21,9 +23,7 @@ import java.util.Date;
  *
  */
 public class DrawGantt extends ApplicationFrame {
-    static int idDuChauffeur = 9;
-    Instance i = new Instance();
-
+    static int idDuChauffeur;
     /**
      * Creates a new demo.
      *

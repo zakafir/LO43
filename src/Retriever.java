@@ -8,8 +8,8 @@ import java.util.*;
  */
 public class Retriever {
 
-    private static final String PATH_NAME_INSTANCE = "/Users/zakaria_afir/Downloads/sujet_LO43/Instance_4/Instance_4.txt";
-    private static final String PATH_NAME_SOLUTION = "/Users/zakaria_afir/Downloads/sujet_LO43/Instance_4/Solution_4.txt";
+    private static  String PATH_NAME_INSTANCE = "";
+    private static  String PATH_NAME_SOLUTION = "";
     public static int numberOfDrivers;
     private static int totalCost;
     private Map<String, Object> worker = new TreeMap<String, Object>();
@@ -252,5 +252,21 @@ public class Retriever {
 
     public static List<Map<String, Object>> getTasks() {
         return tasks;
+    }
+
+    public static String getPathNameInstance() {
+        return PATH_NAME_INSTANCE;
+    }
+
+    public static void setPathNameInstance(String pathNameInstance) {
+        PATH_NAME_INSTANCE = pathNameInstance;
+    }
+
+    public static String getPathNameSolution() {
+        return PATH_NAME_SOLUTION;
+    }
+
+    public static void setPathNameSolution(String pathNameSolution) {
+        PATH_NAME_SOLUTION = pathNameSolution;
     }
 }

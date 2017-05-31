@@ -59,7 +59,20 @@ public class JListExample extends JFrame {
                         System.out.println("Origin: "+Instance.originOfSpecificWorker(DrawGantt.idDuChauffeur,it+1));
                         System.out.println("Destination: "+Instance.destinationOfSpecificWorker(DrawGantt.idDuChauffeur,it+1));
                         System.out.println("Id Task : "+Instance.taskIdOfSpecificWorker(DrawGantt.idDuChauffeur,it+1));
-                        System.out.println("l'heure de la tâche : "+ Instance.hoursOfSpecificWorker(DrawGantt.idDuChauffeur,it+1));
+                        System.out.print("l'heure de début : ");
+                        System.out.print(Instance.heureDebutTaskOfSpecifiWorker(DrawGantt.idDuChauffeur,it+1)[0]);
+                        System.out.print(Instance.heureDebutTaskOfSpecifiWorker(DrawGantt.idDuChauffeur,it+1)[1]);
+                        System.out.print(":");
+                        System.out.print(Instance.heureDebutTaskOfSpecifiWorker(DrawGantt.idDuChauffeur,it+1)[2]);
+                        System.out.println(Instance.heureDebutTaskOfSpecifiWorker(DrawGantt.idDuChauffeur,it+1)[3]);
+
+                        System.out.print("l'heure de fin : ");
+                        System.out.print(Instance.heureFinTaskOfSpecifiWorker(DrawGantt.idDuChauffeur,it+1)[0]);
+                        System.out.print(Instance.heureFinTaskOfSpecifiWorker(DrawGantt.idDuChauffeur,it+1)[1]);
+                        System.out.print(":");
+                        System.out.print(Instance.heureFinTaskOfSpecifiWorker(DrawGantt.idDuChauffeur,it+1)[2]);
+                        System.out.println(Instance.heureFinTaskOfSpecifiWorker(DrawGantt.idDuChauffeur,it+1)[3]);
+
                         System.out.println("********************************************");
                         System.out.println("\n");
 

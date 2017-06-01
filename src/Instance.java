@@ -98,7 +98,7 @@ public class Instance {
             }
         }
 
-        return destination;
+        return getAddress(destination);
     }
 
     public static int finishTimeOfSpecificWorker(int idWorker, int task) {
@@ -207,8 +207,62 @@ public class Instance {
                 }
             }
         }
+        return getAddress(origin);
+    }
 
+    public static String getAddress(String origin){
+
+        switch (origin) {
+            case "A":
+                origin = "Valdoie Mairie (A)";
+                break;
+
+            case "B":
+                origin = "La Douce (B)";
+                break;
+
+            case "C":
+                origin = "Madrid (C)";
+                break;
+
+            case "D":
+                origin = "Techn'hom4 (D)";
+                break;
+
+            case "E":
+                origin = "Gare (D)";
+                break;
+
+            case "F":
+                origin = "1er RA (F)";
+                break;
+
+            case "M":
+                origin = "Pierre Engel (M)";
+                break;
+
+            case "N":
+                origin = "Essert (N)";
+                break;
+
+            case "O":
+                origin = "Moulin (O)";
+                break;
+
+            case "P":
+                origin = "LA DAME (P)";
+                break;
+
+            case "U":
+                origin = "Laurencie (U)";
+                break;
+
+            default:
+                origin = origin;
+
+        }
         return origin;
+
     }
 
     public static int taskIdOfSpecificWorker(int idWorker, int task) {
@@ -235,7 +289,7 @@ public class Instance {
         }
 
         return hours;
-    };
+    }
 
 
     public static int startTimeOfSpecificWorker(int idWorker, int task) {

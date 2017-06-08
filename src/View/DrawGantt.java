@@ -1,3 +1,6 @@
+package View;
+
+import Model.Instance;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -7,27 +10,23 @@ import org.jfree.data.gantt.TaskSeries;
 import org.jfree.data.gantt.TaskSeriesCollection;
 import org.jfree.data.time.SimpleTimePeriod;
 import org.jfree.ui.ApplicationFrame;
-import org.jfree.ui.RefineryUtilities;
 
-import javax.swing.*;
-import java.awt.*;
 import java.util.Calendar;
 import java.util.Date;
 
 /**
  * A simple demonstration application showing how to create a Gantt chart.
- * <P>
+ * <p>
  * This demo is intended to show the conceptual approach rather than being a polished
  * implementation.
- *
- *
  */
 public class DrawGantt extends ApplicationFrame {
     static int idDuChauffeur;
+
     /**
      * Creates a new demo.
      *
-     * @param title  the frame title.
+     * @param title the frame title.
      */
     public DrawGantt(final String title) {
 
@@ -62,57 +61,29 @@ public class DrawGantt extends ApplicationFrame {
     public static IntervalCategoryDataset createDataset() {
 
 
-
         TaskSeries[] s = new TaskSeries[Instance.tasksOfSpecificWorker(idDuChauffeur).size()];
         TaskSeriesCollection collection = new TaskSeriesCollection();
 
 
-
-
-        for (int it =0; it<Instance.tasksOfSpecificWorker(idDuChauffeur).size();++it) {
-            s[it] = new TaskSeries("tâche "+(it+1));
+        for (int it = 0; it < Instance.tasksOfSpecificWorker(idDuChauffeur).size(); ++it) {
+            s[it] = new TaskSeries("tâche " + (it + 1));
 
             s[it].add(new Task("",
                     new SimpleTimePeriod(date(1, Calendar.APRIL, 2017,
-                            Instance.heureDebutTaskOfSpecifiWorker(idDuChauffeur, it+1)),
+                            Instance.heureDebutTaskOfSpecifiWorker(idDuChauffeur, it + 1)),
                             date(1, Calendar.APRIL, 2017,
-                                    Instance.heureFinTaskOfSpecifiWorker(idDuChauffeur, it+1)))));
+                                    Instance.heureFinTaskOfSpecifiWorker(idDuChauffeur, it + 1)))));
             collection.add(s[it]);
         }
-
-
-        /*s1.add(new Task("Obtain Approval",
-                new SimpleTimePeriod(date(1, Calendar.APRIL, 2017,
-                        Instance.heureDebutTaskOfSpecifiWorker(1,2)),
-                        date(1, Calendar.APRIL, 2017,
-                                Instance.heureFinTaskOfSpecifiWorker(1,2)))));*/
-
-
-        /*final TaskSeries s2 = new TaskSeries("Actual");
-        s2.add(new Task("Write Proposal",
-                new SimpleTimePeriod(date(1, Calendar.APRIL, 2017,
-                        Instance.heureDebutTaskOfSpecifiWorker(2,1)),
-                        date(1, Calendar.APRIL, 2017,
-                                Instance.heureFinTaskOfSpecifiWorker(2,1)))));
-        s2.add(new Task("Obtain Approval",
-                new SimpleTimePeriod(date(1, Calendar.APRIL, 2017,
-                        Instance.heureDebutTaskOfSpecifiWorker(2,2)),
-                        date(1, Calendar.APRIL, 2017,
-                                Instance.heureFinTaskOfSpecifiWorker(2,2)))));*/
-
-
-        //collection.add(s2);
-
         return collection;
     }
 
     /**
      * Utility method for creating <code>Date</code> objects.
      *
-     * @param day  the date.
-     * @param month  the month.
+     * @param day   the date.
+     * @param month the month.
      * @param year  the year.
-     *
      * @return a date.
      */
     private static Date date(final int day, final int month, final int year) {
@@ -127,10 +98,9 @@ public class DrawGantt extends ApplicationFrame {
     /**
      * Utility method for creating <code>Date</code> objects.
      *
-     * @param day  the date.
-     * @param month  the month.
+     * @param day   the date.
+     * @param month the month.
      * @param year  the year.
-     *
      * @return a date.
      */
     private static Date date(final int day, final int month, final int year, final Integer[] hourAndMinuteOfDay) {
@@ -141,41 +111,40 @@ public class DrawGantt extends ApplicationFrame {
         minute = Integer.parseInt(hourAndMinuteOfDay[2] + "" + hourAndMinuteOfDay[3]);
 
         final Calendar calendar = Calendar.getInstance();
-        calendar.set(day,month,year,hour,minute);
+        calendar.set(day, month, year, hour, minute);
         final Date result = calendar.getTime();
         return result;
 
     }
 
     /**
-     * Creates a chart.
-     *
-     * @param dataset  the dataset.
-     *
-     * @return The chart.
-     */
-    private JFreeChart createChart(final IntervalCategoryDataset dataset) {
-        final JFreeChart chart = ChartFactory.createGanttChart(
-                "Diagramme de Gantt du chauffeur N° "+idDuChauffeur,  // chart title
-                "tâches",              // domain axis label
-                "Jour",              // range axis label
-                dataset,             // data
-                true,                // include legend
-                true,                // tooltips
-                true                // urls
-        );
-//        chart.getCategoryPlot().getDomainAxis().setMaxCategoryLabelWidthRatio(10.0f);
-        return chart;
-    }
-
-    /**
      * Starting point for the demonstration application.
      *
-     * @param args  ignored.
+     * @param args ignored.
      */
     public static void main(final String[] args) {
 
 
+    }
+
+    /**
+     * Creates a chart.
+     *
+     * @param dataset the dataset.
+     * @return The chart.
+     */
+    private JFreeChart createChart(final IntervalCategoryDataset dataset) {
+        final JFreeChart chart = ChartFactory.createGanttChart(
+                "Diagramme de Gantt du chauffeur N° " + idDuChauffeur,  // chart title
+                "tâches",              // domain axis label
+                "Jour",              // range axis label
+                dataset,             // data
+                true,                // include legend
+                false,                // tooltips
+                true                // urls
+        );
+//        chart.getCategoryPlot().getDomainAxis().setMaxCategoryLabelWidthRatio(10.0f);
+        return chart;
     }
 
 }

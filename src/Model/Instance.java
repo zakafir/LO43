@@ -1,3 +1,7 @@
+package Model;
+
+import Controller.Retriever;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -210,7 +214,7 @@ public class Instance {
         return getAddress(origin);
     }
 
-    public static String getAddress(String origin){
+    public static String getAddress(String origin) {
 
         switch (origin) {
             case "A":

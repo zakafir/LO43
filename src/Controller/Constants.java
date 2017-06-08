@@ -1,3 +1,5 @@
+package Controller;
+
 /**
  * Created by zakaria_afir on 29/04/2017.
  */
@@ -18,11 +20,6 @@ public class Constants {
     public final static String O = "Moulin";
     public final static String P = "LA DAME";
     public final static String U = "Laurencie";
-
-
-
-
-
 
 
 }

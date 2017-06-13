@@ -46,40 +46,38 @@ public class JListExample extends JFrame {
                     if (Instance.workerTimeSumOfSpecificWorker(DrawGantt.idDuChauffeur) >= Constants.TEMPS_NORMAL) {
                         System.out.println("+Id Worker: " + DrawGantt.idDuChauffeur + " (★★★★★)");
                         System.out.println("+Ce chauffeur a obtenu 5 étoiles parce qu'il a travaillé plus que " + Constants.TEMPS_NORMAL + " min");
-                    } else if(Instance.workerTimeSumOfSpecificWorker(DrawGantt.idDuChauffeur)>0 &&
-                            Instance.workerTimeSumOfSpecificWorker(DrawGantt.idDuChauffeur)<96 ){
+                    } else if (Instance.workerTimeSumOfSpecificWorker(DrawGantt.idDuChauffeur) > 0 &&
+                            Instance.workerTimeSumOfSpecificWorker(DrawGantt.idDuChauffeur) < 96) {
 
                         System.out.println("+Id Worker: " + DrawGantt.idDuChauffeur + " (☆☆☆☆☆)");
                         System.out.println("+Ce chauffeur n'a pas obtenu d'étoiles ");
 
-                    }else if(Instance.workerTimeSumOfSpecificWorker(DrawGantt.idDuChauffeur)>=96 &&
-                            Instance.workerTimeSumOfSpecificWorker(DrawGantt.idDuChauffeur)<192 ){
+                    } else if (Instance.workerTimeSumOfSpecificWorker(DrawGantt.idDuChauffeur) >= 96 &&
+                            Instance.workerTimeSumOfSpecificWorker(DrawGantt.idDuChauffeur) < 192) {
 
                         System.out.println("+Id Worker: " + DrawGantt.idDuChauffeur + " (★☆☆☆☆)");
                         System.out.println("+Ce chauffeur a obtenu 1 étoile ");
 
 
-                    }else if(Instance.workerTimeSumOfSpecificWorker(DrawGantt.idDuChauffeur)>=192 &&
-                            Instance.workerTimeSumOfSpecificWorker(DrawGantt.idDuChauffeur)<288 ){
+                    } else if (Instance.workerTimeSumOfSpecificWorker(DrawGantt.idDuChauffeur) >= 192 &&
+                            Instance.workerTimeSumOfSpecificWorker(DrawGantt.idDuChauffeur) < 288) {
 
                         System.out.println("+Id Worker: " + DrawGantt.idDuChauffeur + " (★★☆☆☆)");
                         System.out.println("+Ce chauffeur a obtenu 2 étoiles ");
 
-                    }else if(Instance.workerTimeSumOfSpecificWorker(DrawGantt.idDuChauffeur)>=288 &&
-                            Instance.workerTimeSumOfSpecificWorker(DrawGantt.idDuChauffeur)<384 ){
+                    } else if (Instance.workerTimeSumOfSpecificWorker(DrawGantt.idDuChauffeur) >= 288 &&
+                            Instance.workerTimeSumOfSpecificWorker(DrawGantt.idDuChauffeur) < 384) {
 
                         System.out.println("+Id Worker: " + DrawGantt.idDuChauffeur + " (★★★☆☆)");
                         System.out.println("+Ce chauffeur a obtenu 3 étoiles ");
 
-                    }else if(Instance.workerTimeSumOfSpecificWorker(DrawGantt.idDuChauffeur)>=384 &&
-                            Instance.workerTimeSumOfSpecificWorker(DrawGantt.idDuChauffeur)<480){
+                    } else if (Instance.workerTimeSumOfSpecificWorker(DrawGantt.idDuChauffeur) >= 384 &&
+                            Instance.workerTimeSumOfSpecificWorker(DrawGantt.idDuChauffeur) < 480) {
 
                         System.out.println("+Id Worker: " + DrawGantt.idDuChauffeur + " (★★★★☆)");
                         System.out.println("+Ce chauffeur a obtenu 4 étoiles ");
 
-                    }
-
-                    else{
+                    } else {
                         System.out.println("+Id Worker: " + DrawGantt.idDuChauffeur);
                     }
                     System.out.println("+The WorkerTime Sum: " + Instance.workerTimeSumOfSpecificWorker(DrawGantt.idDuChauffeur));

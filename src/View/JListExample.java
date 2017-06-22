@@ -92,7 +92,7 @@ public class JListExample extends JFrame {
                     System.out.println("Tasks of worker :" + DrawGantt.idDuChauffeur);
                     for (int it = 0; it < Instance.tasksOfSpecificWorker(DrawGantt.idDuChauffeur).size(); ++it) {
                         System.out.println("********************************************");
-                        System.out.println("Task :" + it + 1);
+                        System.out.println("Task :" + (it + 1));
                         System.out.println("Start Time: " + Instance.startTimeOfSpecificWorker(DrawGantt.idDuChauffeur, it + 1));
                         System.out.println("Finish Time: " + Instance.finishTimeOfSpecificWorker(DrawGantt.idDuChauffeur, it + 1));
                         System.out.println("Origin: " + Instance.originOfSpecificWorker(DrawGantt.idDuChauffeur, it + 1));
